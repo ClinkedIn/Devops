@@ -1,0 +1,25 @@
+scrape_configs:
+  - job_name: 'nginx'
+    scrape_timeout: 30s
+    scrape_interval: 5m
+    tls_config:
+      insecure_skip_verify: true
+    static_configs:
+      - targets: [exporter:9113]
+
+  - job_name: 'backend'
+    scrape_timeout: 30s
+    scrape_interval: 5m
+    metrics_path: '/swagger-stats/metrics'
+    tls_config:
+      insecure_skip_verify: true
+    static_configs:
+      - targets: [backend:3000]
+
+   - job_name: 'node'
+    scrape_timeout: 30s
+    scrape_interval: 5m
+    tls_config:
+      insecure_skip_verify: true
+    static_configs:
+      - targets: [node_exporter:9100]
